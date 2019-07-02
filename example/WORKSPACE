@@ -1,0 +1,21 @@
+workspace(name = "rules_fabric_examples")
+
+local_repository(
+    name = "rules_fabric",
+    path = "..",
+)
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+http_archive(
+    name = "yarn",
+    type = "jar",
+    url = "https://maven.fabricmc.net/net/fabricmc/yarn/1.14.3%2Bbuild.9/yarn-1.14.3%2Bbuild.9.jar",
+    sha256 = "1efca049d17d555e4d1ebda517cb12db1365c3cc11019c65fcf5c00091e9199a",
+    build_file_content = """filegroup(name = "mappings", srcs = glob(["**/*.tiny"]), visibility = ["//visibility:public"])"""
+)
+
+load("@rules_fabric//:minecraft.bzl", "mojang_minecraft_jars")
+mojang_minecraft_jars(
+    name = "mojang",
+    version = "1.14.3"
+)
