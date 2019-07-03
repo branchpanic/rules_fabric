@@ -1,8 +1,9 @@
 # Bazel Rules for Fabric
 
 This repository contains Bazel build rules for working with the Fabric
-toolchain on any application. **Using Loom and Gradle will almost always
-be more practical when working with Minecraft**.
+modding toolchain. When working with Minecraft, using
+[Loom](https://github.com/FabricMC/fabric-loom) with Gradle may be a more
+practical option.
 
 ## Usage
 

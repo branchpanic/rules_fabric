@@ -1,7 +1,10 @@
 def _remapped_jar_impl(ctx):
-    cmd = "set -e\n"
-    cmd += "export JAVA_HOME=%s\n" % ctx.attr._java_runtime[java_common.JavaRuntimeInfo].java_home
-    cmd += "$JAVA_HOME/bin/java -jar %s %s %s %s %s %s %s" % (
+    java_runtime = ctx.attr._java_runtime[java_common.JavaRuntimeInfo]
+
+    cmd = "set -e \n"
+    cmd += "export JAVA_HOME=%s\n" % java_runtime.java_home
+    cmd += "%s -jar %s %s %s %s %s %s %s" % (
+        java_runtime.java_executable_exec_path,
         ctx.file._tinyremapper.path,
         ctx.file.src.path,
         ctx.outputs.mapped_jar.path,
@@ -12,7 +15,8 @@ def _remapped_jar_impl(ctx):
     )
 
     ctx.actions.run_shell(
-        inputs = [ctx.file.src] + ctx.files._java_runtime,
+        tools = [ctx.file._tinyremapper],
+        inputs = [ctx.file.src, ctx.file.mappings] + ctx.files._java_runtime,
         outputs = [ctx.outputs.mapped_jar],
         command = cmd,
         use_default_shell_env = True,
@@ -54,7 +58,7 @@ remapped_jar = rule(
         "mapped_jar": "%{name}.jar",
     },
     doc = """
-Remaps names in a jar file based on a set of Tiny mappings. 
+Remaps names in a jar file based on a set of Tiny mappings.
 """,
 )
 
@@ -82,9 +86,12 @@ def chain_remapped_jar(
         )
 
 def _merged_jar_impl(ctx):
+    java_runtime = ctx.attr._java_runtime[java_common.JavaRuntimeInfo]
+
     cmd = "set -e\n"
-    cmd += "export JAVA_HOME=%s\n" % ctx.attr._java_runtime[java_common.JavaRuntimeInfo].java_home
-    cmd += "$JAVA_HOME/bin/java -jar %s mergeJar %s %s %s --syntheticParams" % (
+    cmd += "export JAVA_HOME=%s\n" % java_runtime.java_home
+    cmd += "%s -jar %s mergeJar %s %s %s --syntheticParams" % (
+        java_runtime.java_executable_exec_path,
         ctx.file._stitch.path,
         ctx.file.client_jar.path,
         ctx.file.server_jar.path,
@@ -92,6 +99,7 @@ def _merged_jar_impl(ctx):
     )
 
     ctx.actions.run_shell(
+        tools = [ctx.file._stitch],
         inputs = [ctx.file.client_jar, ctx.file.server_jar] + ctx.files._java_runtime,
         outputs = [ctx.outputs.merged_jar],
         command = cmd,
