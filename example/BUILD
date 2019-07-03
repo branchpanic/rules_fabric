@@ -1,12 +1,15 @@
-load("@rules_fabric//:mapping.bzl", "remapped_jar", "merged_jar")
+load("@rules_fabric//fabric:jar_tools.bzl", "merged_jar", "chain_remapped_jar")
 
 merged_jar(
     name = "minecraft_merged",
-    srcs = ["@mojang//minecraft_client", "@mojang//minecraft_server"]
+    client_jar = "@mojang//:minecraft_client",
+    server_jar = "@mojang//:minecraft_server",
 )
 
-remapped_jar(
-    name = "minecraft_mapped",
+chain_remapped_jar(
+    base_name = "minecraft",
     src = ":minecraft_merged",
-    mappings = "@yarn//:mappings"
+    mappings = "@yarn//:mappings",
+    names = ["official", "intermediary", "named"],
+    visibility = ["//visibility:public"]
 )

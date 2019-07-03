@@ -6,16 +6,43 @@ local_repository(
 )
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
 http_archive(
     name = "yarn",
+    build_file_content = """filegroup(name = "mappings", srcs = glob(["**/*.tiny"]), visibility = ["//visibility:public"])""",
+    sha256 = "1efca049d17d555e4d1ebda517cb12db1365c3cc11019c65fcf5c00091e9199a",
     type = "jar",
     url = "https://maven.fabricmc.net/net/fabricmc/yarn/1.14.3%2Bbuild.9/yarn-1.14.3%2Bbuild.9.jar",
-    sha256 = "1efca049d17d555e4d1ebda517cb12db1365c3cc11019c65fcf5c00091e9199a",
-    build_file_content = """filegroup(name = "mappings", srcs = glob(["**/*.tiny"]), visibility = ["//visibility:public"])"""
 )
 
-load("@rules_fabric//:minecraft.bzl", "mojang_minecraft_jars")
-mojang_minecraft_jars(
+load("@rules_fabric//:defs.bzl", "fabric_repositories")
+
+fabric_repositories()
+
+load("@rules_fabric//fabric/minecraft:minecraft.bzl", "minecraft_jars")
+
+minecraft_jars(
     name = "mojang",
-    version = "1.14.3"
+    version = "1.14.3",
+)
+
+RULES_JVM_EXTERNAL_TAG = "2.2"
+RULES_JVM_EXTERNAL_SHA = "f1203ce04e232ab6fdd81897cf0ff76f2c04c0741424d192f28e65ae752ce2d6"
+
+http_archive(
+    name = "rules_jvm_external",
+    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+    sha256 = RULES_JVM_EXTERNAL_SHA,
+    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
+)
+
+load("@rules_jvm_external//:defs.bzl", "maven_install")
+
+maven_install(
+    artifacts = [
+        "net.fabricmc:fabric-loader:0.4.8+build.155"
+    ],
+    repositories = [
+        "https://maven.fabricmc.net/"
+    ]
 )
