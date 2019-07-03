@@ -1,0 +1,26 @@
+{
+    "schemaVersion": 1,
+    "id": "samplemod",
+    "version": "0.0.0",
+  
+    "name": "Example Mod",
+    "description": "This is an example description! Tell everyone what your mod is about!",
+    "authors": [
+      "Me!"
+    ],
+
+    "license": "CC0-1.0",
+    "environment": "*",
+    "entrypoints": {
+      "main": [
+        "samplemod.SampleMod"
+      ]
+    },
+  
+    "depends": {
+      "fabricloader": ">=0.4.0"
+    },
+    "suggests": {
+      "flamingo": "*"
+    }
+  }
