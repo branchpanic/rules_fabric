@@ -58,7 +58,8 @@ remapped_jar = rule(
         "mapped_jar": "%{name}.jar",
     },
     doc = """
-Remaps names in a jar file based on a set of Tiny mappings.
+Remaps names in a jar file from one schema to another, defined in a Tiny
+mappings file.
 """,
 )
 
@@ -68,6 +69,15 @@ def chain_remapped_jar(
         mappings,
         names,
         **kwargs):
+    """
+    Creates multiple rules for remapping jars through a sequence of mapping
+    names.
+
+    Args:
+        base_name: A unique prefix for generated remap rules.
+        src: Jar file to remap.
+        mappings: A list of mapping names, in order, to remap the source jar with.
+    """
     for i in range(1, len(names)):
         src_mapping_name = names[i - 1]
         dst_mapping_name = names[i]

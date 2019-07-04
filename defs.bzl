@@ -1,6 +1,9 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
 
 def fabric_repositories():
+    """
+    Downloads Stitch and TinyRemapper from the official Fabric Maven repository.
+    """
     http_file(
         name = "stitch",
         executable = True,
@@ -14,5 +17,5 @@ def fabric_repositories():
         executable = True,
         downloaded_file_path = "tinyremapper.jar",
         sha256 = "2be548c7811acf637da8b0c7144b1a337dfa5bf6bfe449d2f513a3dd0bd74568",
-        urls = ["https://maven.fabricmc.net/net/fabricmc/tiny-remapper/0.1.0.38/tiny-remapper-0.1.0.38-fat.jar"]
+        urls = ["https://maven.fabricmc.net/net/fabricmc/tiny-remapper/0.1.0.38/tiny-remapper-0.1.0.38-fat.jar"],
     )

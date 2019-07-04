@@ -37,4 +37,8 @@ minecraft_jars = repository_rule(
         "version": attr.string(),
         "launcher_manifest": attr.label(default = Label("@mojang_launcher_meta//files"), allow_files = False),
     },
+    doc = """
+Fetches client and server Minecraft jars by version from Mojang's official
+servers.
+""",
 )
