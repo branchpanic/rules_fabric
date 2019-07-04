@@ -7,7 +7,7 @@ practical option.
 
 ## Usage
 
-Section TODO: See the `example/` directory for a sample mod.
+Section TODO: See the `example/` directory.
 
 ## Implementation Status
 
