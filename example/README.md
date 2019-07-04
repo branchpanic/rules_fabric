@@ -4,7 +4,7 @@ This directory contains examples of building Fabric mods with Bazel.
 
 ## Attribution
 
-### [FabricMC/fabric-example-mod]
+### [FabricMC/fabric-example-mod](https://github.com/FabricMC/fabric-example-mod)
 
 Replaced Gradle with Bazel and removed original documentation. Serves as a basic
 example outlining all rules.
