@@ -1,13 +1,17 @@
 java_library(
     name = "examplemod",
     srcs = glob(["**/*.java"]),
+    javacopts = [
+        # TODO: Specify refmap file
+        "-AdefaultObfuscationEnv=named:intermediary",
+    ],
     resources = [
         "//src/main/resources:examplemod_resources",
     ],
     deps = [
         "//:minecraft_named",
         "@maven//:net_fabricmc_fabric_loader",
-        "@maven//:org_spongepowered_mixin",
+        "@me_branchpanic_rules_fabric//fabric/mixin:mixin_annotation_processor",
     ],
 )
 

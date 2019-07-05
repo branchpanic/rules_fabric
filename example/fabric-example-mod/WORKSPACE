@@ -1,13 +1,9 @@
 local_repository(
-    name = "rules_fabric",
+    name = "me_branchpanic_rules_fabric",
     path = "../../",
 )
 
-load("@rules_fabric//:defs.bzl", "fabric_repositories")
-
-fabric_repositories()
-
-load("@rules_fabric//fabric/minecraft:minecraft.bzl", "minecraft_jars")
+load("@me_branchpanic_rules_fabric//fabric/minecraft:minecraft.bzl", "minecraft_jars")
 
 minecraft_jars(
     name = "mojang",
@@ -49,3 +45,9 @@ maven_install(
         "https://repo.spongepowered.org/maven/",
     ],
 )
+
+# Depends on rules_jvm_external!
+
+load("@me_branchpanic_rules_fabric//:defs.bzl", "fabric_repositories")
+
+fabric_repositories()
