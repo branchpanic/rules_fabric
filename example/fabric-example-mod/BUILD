@@ -1,4 +1,8 @@
-load("@rules_fabric//fabric:jar_tools.bzl", "chain_remapped_jar", "merged_jar")
+load(
+    "@me_branchpanic_rules_fabric//fabric:jar_tools.bzl",
+    "chain_remapped_jar",
+    "merged_jar",
+)
 
 merged_jar(
     name = "minecraft_merged",

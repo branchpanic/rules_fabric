@@ -1,1 +1,1 @@
-workspace(name = "rules_fabric")
+workspace(name = "me_branchpanic_rules_fabric")

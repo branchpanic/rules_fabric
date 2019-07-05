@@ -11,7 +11,7 @@ java_library(
     ],
 )
 
-load("@rules_fabric//fabric:jar_tools.bzl", "remapped_jar")
+load("@me_branchpanic_rules_fabric//fabric:jar_tools.bzl", "remapped_jar")
 
 remapped_jar(
     name = "examplemod_dist",
