@@ -17,4 +17,4 @@ Section TODO: See the `example/` directory.
 - [x] Remapping jars
   - [x] One step (i.e. official -> intermediary, named -> intermediary)
   - [x] Multiple steps (i.e. official -> intermediary -> named)
-- [ ] Mixins
+- [x] Mixins
