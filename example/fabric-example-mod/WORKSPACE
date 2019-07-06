@@ -1,13 +1,9 @@
 local_repository(
-    name = "rules_fabric",
+    name = "me_branchpanic_rules_fabric",
     path = "../../",
 )
 
-load("@rules_fabric//:defs.bzl", "fabric_repositories")
-
-fabric_repositories()
-
-load("@rules_fabric//fabric/minecraft:minecraft.bzl", "minecraft_jars")
+load("@me_branchpanic_rules_fabric//fabric/minecraft:minecraft.bzl", "minecraft_jars")
 
 minecraft_jars(
     name = "mojang",
@@ -39,13 +35,29 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
     artifacts = [
+        "net.fabricmc:fabric-loom:0.2.5-SNAPSHOT",
         "net.fabricmc:fabric-loader:0.4.8+build.155",
         "net.fabricmc:fabric-mixin-compile-extensions:0.1.0.2",
-        "org.spongepowered:mixin:0.7.8-SNAPSHOT",
+        "net.fabricmc:sponge-mixin:0.7.11.36",
+        # Mixin embeds its ASM dependencies with jarjar, which doesn't play
+        # nice with our refmap task. As a result, we're explicitly adding them
+        # here.
+        "org.ow2.asm:asm:7.1",
+        "org.ow2.asm:asm-analysis:7.1",
+        "org.ow2.asm:asm-commons:7.1",
+        "org.ow2.asm:asm-tree:7.1",
+        "org.ow2.asm:asm-util:7.1",
     ],
+    fail_on_missing_checksum = False,  # org.cadixdev.mercury has no MD5
     repositories = [
         "https://jcenter.bintray.com/",
         "https://maven.fabricmc.net/",
         "https://repo.spongepowered.org/maven/",
     ],
 )
+
+# Depends on rules_jvm_external!
+
+load("@me_branchpanic_rules_fabric//:defs.bzl", "fabric_repositories")
+
+fabric_repositories()
