@@ -1,17 +1,26 @@
+load("@me_branchpanic_rules_fabric//fabric/mixin:refmap.bzl", "mixin_refmap")
+
+mixin_refmap(
+    name = "examplemod_refmap",
+    srcs = glob(["**/*.java"]),
+    mappings = "@yarn//:mappings",
+    deps = [
+        "//:minecraft_named",
+        "@maven//:net_fabricmc_fabric_loader",
+        "@me_branchpanic_rules_fabric//fabric/mixin:mixin_annotation_processor",
+    ],
+)
+
 java_library(
     name = "examplemod",
     srcs = glob(["**/*.java"]),
-    javacopts = [
-        # TODO: Specify refmap file
-        "-AdefaultObfuscationEnv=named:intermediary",
-    ],
     resources = [
         "//src/main/resources:examplemod_resources",
     ],
     deps = [
         "//:minecraft_named",
         "@maven//:net_fabricmc_fabric_loader",
-        "@me_branchpanic_rules_fabric//fabric/mixin:mixin_annotation_processor",
+        "@maven//:org_spongepowered_mixin",
     ],
 )
 

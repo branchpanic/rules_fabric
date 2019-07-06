@@ -43,6 +43,11 @@ remapped_jar = rule(
         "src_mapping_name": attr.string(mandatory = True),
         "dst_mapping_name": attr.string(mandatory = True),
         "tinyremapper_opts": attr.string_list(default = ["--renameinvalidlocals", "--rebuildsourcefilenames"]),
+        "_remix": attr.label(
+            cfg = "host",
+            executable = True,
+            default = "//remix/src/main/java/me/branchpanic/remix:remix",
+        ),
         "_java_runtime": attr.label(
             cfg = "host",
             default = Label("@bazel_tools//tools/jdk:current_java_runtime"),

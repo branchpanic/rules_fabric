@@ -9,7 +9,12 @@ java_library(
     ],
     exports = [
         "@maven//:net_fabricmc_fabric_mixin_compile_extensions",
-        "@maven//:org_spongepowered_mixin",
+        "@maven//:net_fabricmc_sponge_mixin",
+        "@maven//:org_ow2_asm_asm",
+        "@maven//:org_ow2_asm_asm_analysis",
+        "@maven//:org_ow2_asm_asm_commons",
+        "@maven//:org_ow2_asm_asm_tree",
+        "@maven//:org_ow2_asm_asm_util",
     ],
 )
 
@@ -19,7 +24,7 @@ java_plugin(
     processor_class = "org.spongepowered.tools.obfuscation.MixinObfuscationProcessorInjection",
     deps = [
         "@maven//:net_fabricmc_fabric_mixin_compile_extensions",
-        "@maven//:org_spongepowered_mixin",
+        "@maven//:net_fabricmc_sponge_mixin",
     ],
 )
 
@@ -29,6 +34,6 @@ java_plugin(
     processor_class = "org.spongepowered.tools.obfuscation.MixinObfuscationProcessorTargets",
     deps = [
         "@maven//:net_fabricmc_fabric_mixin_compile_extensions",
-        "@maven//:org_spongepowered_mixin",
+        "@maven//:net_fabricmc_sponge_mixin",
     ],
 )
