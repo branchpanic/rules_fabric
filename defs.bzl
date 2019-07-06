@@ -1,5 +1,7 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
 
+FABRIC_MIXIN_VERSION = "0.7.11"
+
 def fabric_repositories():
     """
     Downloads Stitch and TinyRemapper from the official Fabric Maven repository.
